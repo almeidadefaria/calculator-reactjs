@@ -7,7 +7,8 @@ import {
   Column,
   Button,
   Right,
-  Button2
+  Button2,
+  Result
 } from './styled';
 
 
@@ -22,7 +23,7 @@ export default () => {
   const [number2, setNumber2] = useState(null);
   const [operation, setOperation] = useState(null);
 
-  calculation = (num1, num2, operation) => {
+  function calculation (num1, num2, operation) {
     let result;
     switch (operation){
       case sum:
@@ -43,7 +44,7 @@ export default () => {
     return result;
   }
 
-  concatenate = (currentNum, concatNum) => {
+  function concatenate (currentNum, concatNum) {
     if (currentNum === '0' || currentNum === null){
       currentNum = '';
     }
@@ -56,7 +57,7 @@ export default () => {
     return currentNum + concatNum;
   }
 
-  addNumber = (num) => {
+  function addNumber (num) {
     let result;
     if (operation === null){
       result = concatenate(number1, num);
@@ -69,7 +70,7 @@ export default () => {
     setTextNumbers(result);
   }
 
-  operationType = (op) => {
+  function operationType (op) {
     if (operation === null){
       setOperation(op);
       return;
@@ -84,38 +85,58 @@ export default () => {
     }
   }
 
+  function calculate () {
+    if (number2 === null){
+      return;
+    }
+
+    const result = calculation(parseFloat(number1), parseFloat(number2), operation);
+    setTextNumbers(result);
+  }
+
+  function clean () {
+    setTextNumbers('0');
+    setNumber1('0');
+    setNumber2(null);
+    setOperation(null);
+  }
+
+
+
   return (
     <Container>
-        <Screen></Screen>
+        <Screen>
+          <Result  type="text" value={textNumbers}></Result>
+        </Screen>
         <Body>        
           <Left>
                   <Column>
-                      <Button>7</Button>
-                      <Button>8</Button>
-                      <Button>9</Button>
+                      <Button onClick={()=>addNumber('7')}>7</Button>
+                      <Button onClick={()=>addNumber('8')}>8</Button>
+                      <Button onClick={()=>addNumber('9')}>9</Button>
                   </Column>
                   <Column>
-                      <Button>4</Button>
-                      <Button>5</Button>
-                      <Button>6</Button>
+                      <Button onClick={()=>addNumber('4')}>4</Button>
+                      <Button onClick={()=>addNumber('5')}>5</Button>
+                      <Button onClick={()=>addNumber('6')}>6</Button>
                   </Column>
                   <Column>
-                      <Button>1</Button>
-                      <Button>2</Button>
-                      <Button>3</Button>
+                      <Button onClick={()=>addNumber('1')}>1</Button>
+                      <Button onClick={()=>addNumber('2')}>2</Button>
+                      <Button onClick={()=>addNumber('3')}>3</Button>
                   </Column>
                   <Column>
-                      <Button>0</Button>
-                      <Button>.</Button>
-                      <Button>=</Button>
+                      <Button onClick={()=>addNumber('0')}>0</Button>
+                      <Button onClick={()=>addNumber('.')}>.</Button>
+                      <Button onClick={calculate}>=</Button>
                   </Column>                  
               </Left>
               <Right>
-                <Button2>C</Button2>
-                <Button2>/</Button2>
-                <Button2>x</Button2>
-                <Button2>-</Button2>
-                <Button2>+</Button2>
+                <Button2 onClick={clean}>C</Button2>
+                <Button2 onClick={() => operationType(division)}>/</Button2>
+                <Button2 onClick={() => operationType(multiplication)}>x</Button2>
+                <Button2 onClick={() => operationType(subtraction)}>-</Button2>
+                <Button2 onClick={() => operationType(sum)}>+</Button2>
             </Right>
             </Body>        
     </Container>

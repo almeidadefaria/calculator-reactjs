@@ -14,9 +14,16 @@ export const Container = styled.div`
 
 `;
 
-export const Screen = styled.div`
-    
+export const Result = styled.input` 
+    text-align: right; 
+    font-size: 35px;
+    width: 270px;
+    outline: none;
+`;
+
+export const Screen = styled.div`    
     padding: 5px;
+    color: black;
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
