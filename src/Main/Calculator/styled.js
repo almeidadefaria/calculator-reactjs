@@ -61,6 +61,10 @@ export const Button = styled.button`
     background-color: black;
     color: white;
     cursor: pointer;
+    
+        &:hover{
+                background-color: darkgrey;
+            }
 `;
 
 export const Right = styled.div`
